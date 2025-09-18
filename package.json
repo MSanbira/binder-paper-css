@@ -1,6 +1,6 @@
 {
-  "name": "binder-paper-css",
-  "version": "0.1.0",
+  "name": "@sanbira/binder-paper-css",
+  "version": "0.1.1",
   "description": "A simple binder paper-like stylesheet that can be used via npm or jsDelivr CDN.",
   "license": "MIT",
   "main": "index.js",
@@ -34,5 +34,8 @@
     "notebook",
     "cdn",
     "jsdelivr"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }

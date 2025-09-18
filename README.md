@@ -1,5 +1,8 @@
 # binder-paper-css
 
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-blue?logo=github)](https://github.com/MSanbira/binder-paper-css)
+[![npm](https://img.shields.io/badge/npm-Package-red?logo=npm)](https://www.npmjs.com/package/@sanbira/binder-paper-css)
+
 A simple binder paper–like stylesheet you can use in any project.
 
 Works both as an npm package and via CDN (jsDelivr).
@@ -7,17 +10,17 @@ Works both as an npm package and via CDN (jsDelivr).
 ## Install (npm)
 
 ```bash
-npm install binder-paper-css
+npm install @sanbira/binder-paper-css
 ```
 
 Then import the CSS in your app entry:
 
 ```js
 // ESM
-import 'binder-paper-css';
+import '@sanbira/binder-paper-css';
 
 // or import the CSS file directly (works in Vite, Next, CRA, etc.)
-import 'binder-paper-css/style.css';
+import '@sanbira/binder-paper-css/style.css';
 ```
 
 Use the class in your markup:
@@ -52,13 +55,13 @@ Use the class in your markup:
 No build step? Use the CDN:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/binder-paper-css/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sanbira/binder-paper-css/style.css">
 ```
 
 To lock a specific version, include it in the URL (recommended for production):
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/binder-paper-css@0.1.0/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sanbira/binder-paper-css@0.1.0/style.css">
 ```
 
 ## Customize
