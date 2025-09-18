@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binder Paper CSS - Demo</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 2rem;
+            background: #f0f0f0;
+            font-family: system-ui, sans-serif;
+        }
+        
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .demo-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .demo-controls {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .demo-controls label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        .demo-controls input[type="range"] {
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+        
+        .demo-controls button {
+            margin-right: 1rem;
+            padding: 0.5rem 1rem;
+            border: 1px solid #ccc;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .demo-controls button:hover {
+            background: #f5f5f5;
+        }
+        
+        .demo-controls button.active {
+            background: #007acc;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <div class="demo-header">
+            <h1>Binder Paper CSS Demo</h1>
+            <p>Test the stylesheet with live controls and sample content</p>
+        </div>
+        
+        <div class="demo-controls">
+            <label for="fontSize">Global Font Size: <span id="fontSizeValue">16px</span></label>
+            <input type="range" id="fontSize" min="8" max="32" value="16" step="1">
+            
+            <label for="lineHeightNum">Line Height Number: <span id="lineHeightNumValue">0.5</span></label>
+            <input type="range" id="lineHeightNum" min="0.1" max="1.5" value="0.5" step="0.1">
+            
+            <label for="pageLineHeight">Page Line Height: <span id="pageLineHeightValue">0.1</span></label>
+            <input type="range" id="pageLineHeight" min="0.05" max="0.5" value="0.1" step="0.05">
+            
+            <label for="paddingBlock">Padding Block Multiplier: <span id="paddingBlockValue">2</span></label>
+            <input type="range" id="paddingBlock" min="1" max="5" value="2" step="0.5">
+            
+            <label for="maxWidth">Max Width: <span id="maxWidthValue">50em</span></label>
+            <input type="range" id="maxWidth" min="30" max="100" value="50" step="5">
+            
+            <button onclick="toggleDirection()" id="dirBtn">Switch to RTL</button>
+            <button onclick="toggleFont()" id="fontBtn">Toggle Font</button>
+        </div>
+        
+        <div class="BPCSS-page" id="notePage">
+            <h1>Sample Notebook Page</h1>
+            
+            <h2>Typography Test</h2>
+            <p>
+                This is a paragraph of text to demonstrate how the binder paper styling 
+                affects regular content. The lines should align with the background grid, 
+                and the text should have proper spacing and rhythm.
+            </p>
+            
+            <h3>Lists and Content</h3>
+            <p>Here's how different content types look:</p>
+            
+            <h3>Ordered List</h3>
+            <ol>
+                <li>First item in the ordered list</li>
+                <li>Second item with proper line alignment</li>
+                <li>Third item demonstrating consistent spacing</li>
+            </ol>
+            
+            <h3>Unordered List</h3>
+            <ul>
+                <li>Bullet point item one</li>
+                <li>Bullet point item two</li>
+                <li>Bullet point item three with longer text to show how wrapping works with the line grid</li>
+            </ul>
+            
+            <h2>Features Demonstrated</h2>
+            <p>
+                • Horizontal ruled lines that create a notebook effect<br>
+                • Red margin line on the left (or right in RTL)<br>
+                • Punch holes for a realistic binder appearance<br>
+                • Typography that aligns to the line grid<br>
+                • Responsive scaling via CSS variables
+            </p>
+            
+            <h3>Variable Control</h3>
+            <p>
+                All measurements scale from the global font size variable. 
+                Use the slider above to see how the entire design scales proportionally.
+            </p>
+            
+            <h2>Direction Support</h2>
+            <p>
+                The design automatically adapts for right-to-left languages. 
+                Click the RTL button to see the margin line and holes flip sides.
+            </p>
+            
+            <h3>Custom Styling</h3>
+            <p>
+                You can override any of the CSS variables to customize the appearance:
+                line thickness, hole position, colors, spacing, and more.
+            </p>
+            
+            <h1>Large Heading</h1>
+            <p>
+                Large headings take up multiple line spaces to maintain the grid alignment.
+                This ensures visual consistency across different content types.
+            </p>
+            
+            <h2>Medium Heading</h2>
+            <p>
+                Medium headings are sized to fit the line rhythm while providing 
+                clear hierarchy and visual distinction from body text.
+            </p>
+            
+            <h3>Small Heading</h3>
+            <p>
+                Small headings are underlined and fit within a single line space,
+                perfect for subsections and detailed organization.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Font size control
+        const fontSizeSlider = document.getElementById('fontSize');
+        const fontSizeValue = document.getElementById('fontSizeValue');
+        const notePage = document.getElementById('notePage');
+        
+        fontSizeSlider.addEventListener('input', function() {
+            const size = this.value + 'px';
+            fontSizeValue.textContent = size;
+            document.documentElement.style.setProperty('--BPCSS-global-font-size', size);
+        });
+        
+        // Line height number control
+        const lineHeightNumSlider = document.getElementById('lineHeightNum');
+        const lineHeightNumValue = document.getElementById('lineHeightNumValue');
+        
+        lineHeightNumSlider.addEventListener('input', function() {
+            const value = this.value;
+            lineHeightNumValue.textContent = value;
+            document.documentElement.style.setProperty('--BPCSS-line-height-num', value);
+        });
+        
+        // Page line height control
+        const pageLineHeightSlider = document.getElementById('pageLineHeight');
+        const pageLineHeightValue = document.getElementById('pageLineHeightValue');
+        
+        pageLineHeightSlider.addEventListener('input', function() {
+            const value = this.value;
+            pageLineHeightValue.textContent = value;
+            notePage.style.setProperty('--page-line-height', `calc(${value} * var(--BPCSS-global-font-size))`);
+        });
+        
+        // Padding block control
+        const paddingBlockSlider = document.getElementById('paddingBlock');
+        const paddingBlockValue = document.getElementById('paddingBlockValue');
+        
+        paddingBlockSlider.addEventListener('input', function() {
+            const value = this.value;
+            paddingBlockValue.textContent = value;
+            notePage.style.setProperty('--padding-block', `calc(var(--BPCSS-line-height) * ${value})`);
+        });
+        
+        // Max width control
+        const maxWidthSlider = document.getElementById('maxWidth');
+        const maxWidthValue = document.getElementById('maxWidthValue');
+        
+        maxWidthSlider.addEventListener('input', function() {
+            const value = this.value + 'em';
+            maxWidthValue.textContent = value;
+            notePage.style.setProperty('--max-width', value);
+        });
+        
+        // Direction toggle with Hebrew content
+        let isRTL = false;
+        const englishContent = {
+            h1: 'Sample Notebook Page',
+            h2_1: 'Typography Test',
+            p1: 'This is a paragraph of text to demonstrate how the binder paper styling affects regular content. The lines should align with the background grid, and the text should have proper spacing and rhythm.',
+            h3_1: 'Lists and Content',
+            p2: 'Here\'s how different content types look:',
+            h3_1b: 'Ordered List',
+            ol1: '<li>First item in the ordered list</li><li>Second item with proper line alignment</li><li>Third item demonstrating consistent spacing</li>',
+            h3_1c: 'Unordered List',
+            ul1: '<li>Bullet point item one</li><li>Bullet point item two</li><li>Bullet point item three with longer text to show how wrapping works with the line grid</li>',
+            h2_2: 'Features Demonstrated',
+            p3: '• Horizontal ruled lines that create a notebook effect<br>• Red margin line on the left (or right in RTL)<br>• Punch holes for a realistic binder appearance<br>• Typography that aligns to the line grid<br>• Responsive scaling via CSS variables',
+            h3_2: 'Variable Control',
+            p4: 'All measurements scale from the global font size variable. Use the slider above to see how the entire design scales proportionally.',
+            h2_3: 'Direction Support',
+            p5: 'The design automatically adapts for right-to-left languages. Click the RTL button to see the margin line and holes flip sides.',
+            h3_3: 'Custom Styling',
+            p6: 'You can override any of the CSS variables to customize the appearance: line thickness, hole position, colors, spacing, and more.',
+            h1_2: 'Large Heading',
+            p7: 'Large headings take up multiple line spaces to maintain the grid alignment. This ensures visual consistency across different content types.',
+            h2_4: 'Medium Heading',
+            p8: 'Medium headings are sized to fit the line rhythm while providing clear hierarchy and visual distinction from body text.',
+            h3_4: 'Small Heading',
+            p9: 'Small headings are underlined and fit within a single line space, perfect for subsections and detailed organization.'
+        };
+        
+        const hebrewContent = {
+            h1: 'דף מחברת לדוגמה',
+            h2_1: 'בדיקת טיפוגרפיה',
+            p1: 'זהו פסקת טקסט להדגמת האופן שבו עיצוב נייר הכריכה משפיע על תוכן רגיל. הקווים צריכים להתיישר עם רשת הרקע, והטקסט צריך לקבל מרווח וקצב נכונים.',
+            h3_1: 'רשימות ותוכן',
+            p2: 'כך נראים סוגי תוכן שונים:',
+            h3_1b: 'רשימה ממוספרת',
+            ol1: '<li>פריט ראשון ברשימה הממוספרת</li><li>פריט שני עם יישור קו נכון</li><li>פריט שלישי המדגים מרווח עקבי</li>',
+            h3_1c: 'רשימה עם תבליטים',
+            ul1: '<li>פריט תבלית אחד</li><li>פריט תבלית שני</li><li>פריט תבלית שלישי עם טקסט ארוך יותר כדי להראות איך עטיפה עובדת עם רשת הקווים</li>',
+            h2_2: 'תכונות מוצגות',
+            p3: '• קווים אופקיים שיוצרים אפקט מחברת<br>• קו שוליים אדום משמאל (או מימין ב-RTL)<br>• חורי ניקוב למראה כריכה אמיתי<br>• טיפוגרפיה המתיישרת לרשת הקווים<br>• שינוי גודל רספונסיבי באמצעות משתני CSS',
+            h3_2: 'בקרת משתנים',
+            p4: 'כל המידות מתאימות ממשתנה גודל הגופן הגלובלי. השתמש במחוון למעלה כדי לראות איך כל העיצוב משתנה באופן פרופורציונלי.',
+            h2_3: 'תמיכה בכיוון',
+            p5: 'העיצוב מתאים אוטומטית לשפות מימין לשמאל. לחץ על כפתור RTL כדי לראות את קו השוליים והחורים מתהפכים.',
+            h3_3: 'עיצוב מותאם אישית',
+            p6: 'אתה יכול לעקוף כל אחד ממשתני ה-CSS כדי להתאים אישית את המראה: עובי קווים, מיקום חורים, צבעים, מרווחים ועוד.',
+            h1_2: 'כותרת גדולה',
+            p7: 'כותרות גדולות תופסות מספר מרווחי קווים כדי לשמור על יישור הרשת. זה מבטיח עקביות חזותית בין סוגי תוכן שונים.',
+            h2_4: 'כותרת בינונית',
+            p8: 'כותרות בינוניות מגודלות כך שיתאימו לקצב הקווים תוך מתן היררכיה ברורה והבחנה חזותית מטקסט הגוף.',
+            h3_4: 'כותרת קטנה',
+            p9: 'כותרות קטנות מקוו תחתון ומתאימות למרווח קו יחיד, מושלמות לתת-סעיפים וארגון מפורט.'
+        };
+        
+        function toggleDirection() {
+            const btn = document.getElementById('dirBtn');
+            isRTL = !isRTL;
+            
+            const content = isRTL ? hebrewContent : englishContent;
+            
+            if (isRTL) {
+                notePage.setAttribute('dir', 'rtl');
+                notePage.setAttribute('lang', 'he');
+                btn.textContent = 'Switch to LTR';
+                btn.classList.add('active');
+            } else {
+                notePage.removeAttribute('dir');
+                notePage.setAttribute('lang', 'en');
+                btn.textContent = 'Switch to RTL';
+                btn.classList.remove('active');
+            }
+            
+            // Update all text content
+            const elements = notePage.querySelectorAll('h1, h2, h3, p, ol, ul');
+            let h1Count = 0, h2Count = 0, h3Count = 0, pCount = 0, olCount = 0, ulCount = 0;
+            
+            elements.forEach(el => {
+                const tagName = el.tagName.toLowerCase();
+                let key;
+                
+                if (tagName === 'h1') {
+                    h1Count++;
+                    key = h1Count === 1 ? 'h1' : 'h1_2';
+                } else if (tagName === 'h2') {
+                    h2Count++;
+                    key = `h2_${h2Count}`;
+                } else if (tagName === 'h3') {
+                    h3Count++;
+                    if (h3Count === 1) key = 'h3_1';
+                    else if (h3Count === 2) key = 'h3_1b';
+                    else if (h3Count === 3) key = 'h3_1c';
+                    else key = `h3_${h3Count - 1}`;
+                } else if (tagName === 'p') {
+                    pCount++;
+                    key = `p${pCount}`;
+                } else if (tagName === 'ol') {
+                    olCount++;
+                    key = `ol${olCount}`;
+                } else if (tagName === 'ul') {
+                    ulCount++;
+                    key = `ul${ulCount}`;
+                }
+                
+                if (content[key]) {
+                    el.innerHTML = content[key];
+                }
+            });
+        }
+        
+        // Font family toggle
+        let useCustomFont = false;
+        function toggleFont() {
+            const btn = document.getElementById('fontBtn');
+            useCustomFont = !useCustomFont;
+            
+            if (useCustomFont) {
+                document.documentElement.style.setProperty('--BPCSS-font-family', "'Kalam', 'Marker Felt', 'Segoe Script', 'Brush Script MT', cursive");
+                btn.textContent = 'Use System Font';
+                btn.classList.add('active');
+            } else {
+                document.documentElement.style.setProperty('--BPCSS-font-family', 'cursive');
+                btn.textContent = 'Use Custom Font';
+                btn.classList.remove('active');
+            }
+        }
+        
+        // Initialize with default font size
+        document.documentElement.style.setProperty('--BPCSS-global-font-size', '16px');
+    </script>
+</body>
+</html>

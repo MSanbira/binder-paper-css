@@ -1,0 +1,38 @@
+{
+  "name": "binder-paper-css",
+  "version": "0.1.0",
+  "description": "A simple binder paper-like stylesheet that can be used via npm or jsDelivr CDN.",
+  "license": "MIT",
+  "main": "index.js",
+  "style": "style.css",
+  "jsdelivr": "style.css",
+  "unpkg": "style.css",
+  "sideEffects": [
+    "*.css"
+  ],
+  "type": "module",
+  "author": "Matan Sanbira",
+  "files": [
+    "index.js",
+    "style.css",
+    "README.md",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MSanbira/binder-paper-css.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MSanbira/binder-paper-css/issues"
+  },
+  "homepage": "https://github.com/MSanbira/binder-paper-css#readme",
+  "keywords": [
+    "css",
+    "styles",
+    "binder",
+    "paper",
+    "notebook",
+    "cdn",
+    "jsdelivr"
+  ]
+}

@@ -1,0 +1,88 @@
+:root {
+    --BPCSS-global-font-size: max(2vmin, 12px);
+    --BPCSS-line-height-num: 0.5;
+    --BPCSS-line-height-space: calc(var(--BPCSS-line-height-num) * var(--BPCSS-global-font-size));
+    --BPCSS-line-height: calc(var(--BPCSS-line-height-space) + 1 * var(--BPCSS-global-font-size));
+    --BPCSS-font-family: cursive;
+}
+
+.BPCSS-page {
+    --page-line-height: calc(0.1 * var(--BPCSS-global-font-size));
+    --padding-block: calc(var(--BPCSS-line-height) * 2);
+    --max-width: 100%;
+
+    --whitespace-height: calc(var(--BPCSS-line-height) - var(--page-line-height));
+    --holes-position: calc(2 * var(--BPCSS-global-font-size));
+    --red-line-position: 90deg;
+
+    &:dir(rtl) {
+        --holes-position: calc(100% - 2 * var(--BPCSS-global-font-size));
+        --red-line-position: -90deg;
+    }
+
+    & * {
+        box-sizing: border-box;
+    }
+
+    & h1,
+    & h2,
+    & h3,
+    & p,
+    & ol,
+    & ul {
+        --row-size: 1;
+        --line-offset: calc(var(--row-size) * 0.3 * var(--BPCSS-global-font-size));
+
+        margin: 0;
+        font-size: calc(var(--row-size) * var(--BPCSS-line-height) - var(--BPCSS-line-height-space));
+        line-height: calc(1em + var(--BPCSS-line-height-space));
+        margin-block-end: var(--BPCSS-line-height);
+        translate: 0 var(--line-offset);
+    }
+
+    & ol,
+    & ul {
+        padding-inline-start: calc(2 * var(--BPCSS-global-font-size));
+    }
+
+    & li {
+        margin: 0;
+        font-size: inherit;
+        line-height: inherit;
+        margin-block-end: 0;
+    }
+
+    & h1 {
+        --row-size: 3;
+        font-weight: bold;
+    }
+
+    & h2 {
+        --row-size: 2;
+        font-weight: bold;
+    }
+
+    & h3 {
+        --row-size: 1;
+        margin-bottom: 0;
+        font-weight: bold;
+        text-decoration: underline;
+    }
+
+    font-family: var(--BPCSS-font-family);
+    max-width: var(--max-width);
+    padding: var(--padding-block) calc(5 * var(--BPCSS-global-font-size));
+    padding-inline-end: calc(2 * var(--BPCSS-global-font-size));
+
+    background-size: 100% calc(var(--BPCSS-line-height) * 10);
+    background-repeat: repeat;
+    background-image: radial-gradient(circle at var(--holes-position) 50%,
+        #557 calc(0.5 * var(--BPCSS-global-font-size)),
+        #0000 0),
+    linear-gradient(var(--red-line-position),
+        #0000 calc(4 * var(--BPCSS-global-font-size)),
+        #ff000020 0 calc(calc(4 * var(--BPCSS-global-font-size)) + var(--page-line-height)),
+        #0000 0),
+    repeating-linear-gradient(white 0 var(--whitespace-height),
+        lightblue 0 calc(var(--whitespace-height) + var(--page-line-height)));
+}
